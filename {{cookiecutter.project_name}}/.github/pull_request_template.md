@@ -7,6 +7,7 @@ Closes #<!-- issue number -->
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
+- [ ] Chore fix
 - [ ] Documentation update
 - [ ] Refactor / cleanup
 - [ ] Tests / CI
