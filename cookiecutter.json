@@ -49,5 +49,5 @@
     "GNU General Public License v3",
     "Not open source"
   ],
-  "_copy_without_render": [".github"]
+  "_copy_without_render": [".github", ".pre-commit-config.yaml"]
 }
