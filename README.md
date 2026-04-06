@@ -37,6 +37,11 @@ On your local machine, navigate to the directory in which you want to
 create a project directory, and run the following command:
 
 ```bash
+uvx cookiecutter https://github.com/lmboat/cookiecutter-uv.git
+```
+
+or if you want to use the original template:
+```bash
 uvx cookiecutter https://github.com/fpgmaas/cookiecutter-uv.git
 ```
 
