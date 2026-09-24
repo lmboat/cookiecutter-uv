@@ -10,6 +10,18 @@ copyright: Maintained by <a href="https://{{cookiecutter.author_github_handle}}.
 nav:
   - Home: index.md
   - Modules: modules.md
+# Living project docs (TODO, CHANGELOG, EDGECASES, DECISIONS, ARCHITECTURE, designs/,
+# incidents/) sit in docs/ by convention but are working records, not site content.
+# mkdocs builds every file under docs/ whether or not it is in the nav, and the strict
+# build does not flag it: an unlisted page logs at INFO, not WARNING.
+exclude_docs: |
+  TODO.md
+  CHANGELOG.md
+  EDGECASES.md
+  DECISIONS.md
+  ARCHITECTURE.md
+  designs/
+  incidents/
 plugins:
   - search
   - mkdocstrings:

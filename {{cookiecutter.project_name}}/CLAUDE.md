@@ -32,7 +32,9 @@ commit that trips one of them is meant to fail.
 - `notebooks/`, `scripts/`, `models/`, `reports/`, `references/`, `examples/` — scaffolded
   and empty; delete what the project does not use
 {%- if cookiecutter.mkdocs == "y" %}
-- `docs/` — mkdocs source (`index.md`, `modules.md`)
+- `docs/` — mkdocs source (`index.md`, `modules.md`). Living docs (TODO, CHANGELOG,
+  EDGECASES, DECISIONS, ARCHITECTURE) also live here but `exclude_docs` in `mkdocs.yml`
+  keeps them out of the built site
 {%- endif %}
 
 Update this section as the layout settles.

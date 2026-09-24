@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 
+import yaml
+
 
 def test_claude_settings_is_valid_json(bake):
     project = bake()
@@ -55,3 +57,27 @@ def test_precommit_has_secret_hooks(bake):
     assert project.is_valid_yaml(".pre-commit-config.yaml")
     for hook_id in ("detect-private-key", "check-added-large-files", "gitleaks"):
         assert project.file_contains(".pre-commit-config.yaml", hook_id), hook_id
+
+
+def test_mkdocs_excludes_living_docs(bake):
+    project = bake(mkdocs="y")
+    assert project.is_valid_yaml("mkdocs.yml")
+    excluded = yaml.safe_load(project.read_file("mkdocs.yml"))["exclude_docs"]
+    for name in (
+        "TODO.md",
+        "CHANGELOG.md",
+        "EDGECASES.md",
+        "DECISIONS.md",
+        "ARCHITECTURE.md",
+        "designs/",
+        "incidents/",
+    ):
+        assert name in excluded, name
+
+
+def test_dependabot_follows_github_actions_option(bake):
+    with_actions = bake(include_github_actions="y")
+    assert with_actions.is_valid_yaml(".github/dependabot.yml")
+    assert with_actions.file_contains(".github/dependabot.yml", 'package-ecosystem: "uv"')
+    without_actions = bake(include_github_actions="n")
+    assert not without_actions.has_file(".github/dependabot.yml")
