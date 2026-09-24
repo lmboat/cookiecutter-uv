@@ -144,3 +144,6 @@ cython_debug/
 
 # Exclude .DS_Store files from being added
 .DS_Store
+
+# Claude Code session worktrees
+.claude/worktrees/
