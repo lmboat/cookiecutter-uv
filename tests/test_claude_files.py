@@ -60,7 +60,7 @@ def test_precommit_has_secret_hooks(bake):
 
 
 def test_mkdocs_excludes_living_docs(bake):
-    project = bake(mkdocs="y")
+    project = bake(docs_tool="mkdocs")
     assert project.is_valid_yaml("mkdocs.yml")
     excluded = yaml.safe_load(project.read_file("mkdocs.yml"))["exclude_docs"]
     for name in (
@@ -81,3 +81,12 @@ def test_dependabot_follows_github_actions_option(bake):
     assert with_actions.file_contains(".github/dependabot.yml", 'package-ecosystem: "uv"')
     without_actions = bake(include_github_actions="n")
     assert not without_actions.has_file(".github/dependabot.yml")
+
+
+def test_claude_md_docs_section_follows_docs_tool(bake):
+    zensical = bake(docs_tool="zensical")
+    assert zensical.file_contains("CLAUDE.md", "zensical")
+    assert not zensical.file_contains("CLAUDE.md", "mkdocs.yml")
+    none = bake(docs_tool="none")
+    assert not none.file_contains("CLAUDE.md", "make docs")
+    assert not none.file_contains("CLAUDE.md", "`docs/`")
