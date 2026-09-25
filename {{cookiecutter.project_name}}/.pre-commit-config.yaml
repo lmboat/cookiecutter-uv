@@ -23,8 +23,8 @@ repos:
       - id: gitleaks
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.14.14"
+    rev: "v0.15.7"
     hooks:
       - id: ruff-check
-        args: [ --exit-non-zero-on-fix ]
+        args: [--exit-non-zero-on-fix]
       - id: ruff-format
