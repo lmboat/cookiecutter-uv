@@ -13,8 +13,8 @@ Closes #<!-- issue number -->
 - [ ] Tests / CI
 
 ## Changes Made
-- 
-- 
+-
+-
 
 ## Testing
 Describe how you tested these changes.
