@@ -1,0 +1,23 @@
+# Dependabot configuration for the template repository itself.
+#
+# GitHub Actions only. Python dependencies are handled by
+# .github/workflows/update-dependencies.yml, which also bumps the pins inside the
+# {{cookiecutter.project_name}} template files that Dependabot cannot parse. Actions are
+# listed here because that workflow only bumps the uv version inside the composite
+# action, not the action tags themselves (actions/checkout, actions/cache,
+# codecov/codecov-action, peter-evans/create-pull-request, astral-sh/setup-uv).
+# One grouped PR per week; Dependabot version updates must be enabled on the fork for
+# this to run at all (forks have them off by default).
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directories:
+      - "/"
+      - "/.github/actions/setup-python-env"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    groups:
+      actions:
+        patterns:
+          - "*"
