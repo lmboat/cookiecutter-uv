@@ -1,0 +1,45 @@
+# Dependabot configuration.
+#
+# GitHub turns on security updates by default, but without this file they arrive as one
+# PR per package, all editing uv.lock and conflicting with each other. The groups below
+# collapse them into a single PR per run and add weekly version updates for the lockfile
+# and for the actions used in .github/workflows. Major bumps stay ungrouped so each one
+# gets its own review.
+version: 2
+updates:
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    groups:
+      security-updates:
+        applies-to: security-updates
+        patterns:
+          - "*"
+      # Type-stub packages use date-stamped versions like 2.3.3.251201, which Dependabot
+      # cannot classify as minor or patch, so an update-types filter silently drops them and
+      # they arrive as individual PRs. Match them by name instead. A dependency joins the
+      # first group it matches, so this group must come before minor-and-patch.
+      stubs:
+        applies-to: version-updates
+        patterns:
+          - "*-stubs"
+          - "types-*"
+      minor-and-patch:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    groups:
+      actions:
+        patterns:
+          - "*"

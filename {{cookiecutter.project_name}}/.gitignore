@@ -215,3 +215,61 @@ __marimo__/
 
 # Mac
 .DS_Store
+
+# Secret-file shapes. Copied from private_setup/claude-config/hooks/secret_shapes.gitignore;
+# that file is the drift-tested original, this block is a snapshot. `!` lines allowlist
+# safe templates.
+
+# --- Env files ---
+.env
+.env.*
+.envrc
+!.env.example
+!.env.sample
+!.env.template
+
+# --- Private keys / certificates / keystores ---
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.pkcs12
+
+# --- SSH private keys (extensionless) ---
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+**/.ssh/**
+
+# --- Cloud / service credential files ---
+.git-credentials
+.netrc
+_netrc
+.npmrc
+.pypirc
+.kube/config
+**/.aws/**
+
+# --- Secret-bearing data files ---
+secrets.*
+*.secret
+*.secrets
+
+# --- Tooling local / machine-specific ---
+CLAUDE.local.md
+.claude/settings.local.json
+
+# SLURM job output
+slurm-*.out
+*.sbatch.log
+logs/
+
+# Data: ignore contents but keep the directory skeleton (data/*/.gitkeep) tracked.
+# Git cannot re-include a file whose parent directory is excluded, so the directories
+# must be un-ignored before the .gitkeep files can be. Bare `data/` would break this.
+data/**
+!data/**/
+!data/**/.gitkeep
