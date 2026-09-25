@@ -15,6 +15,16 @@ repos:
         exclude: ^{{cookiecutter.project_name}}/
       - id: check-yaml
         exclude: ^{{cookiecutter.project_name}}/
+      # Secret hygiene runs on the template directory too: a key committed there
+      # would ship in every generated project.
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: [--maxkb=5000]
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: "v8.30.1"
+    hooks:
+      - id: gitleaks
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: "v0.15.7"
