@@ -11,8 +11,8 @@
 | `make install` | `uv sync` the environment and install the pre-commit hooks (one-time setup) |
 | `make check` | Lock-file consistency, pre-commit on all files, {{cookiecutter.type_checker}}{% if cookiecutter.deptry == "y" %}, deptry{% endif %} |
 | `make test` | pytest{% if cookiecutter.codecov == "y" %} with coverage{% endif %} |
-{%- if cookiecutter.mkdocs == "y" %}
-| `make docs` | Serve the mkdocs site locally; `make docs-test` builds it in strict mode |
+{%- if cookiecutter.docs_tool != "none" %}
+| `make docs` | Serve the {{cookiecutter.docs_tool}} docs site locally; `make docs-test` builds it in strict mode |
 {%- endif %}
 
 `make install` runs `uv run pre-commit install`, so there is no separate hook-install step.
@@ -31,10 +31,14 @@ commit that trips one of them is meant to fail.
   gitignored, only the `.gitkeep` placeholders are tracked
 - `notebooks/`, `scripts/`, `models/`, `reports/`, `references/`, `examples/` — scaffolded
   and empty; delete what the project does not use
-{%- if cookiecutter.mkdocs == "y" %}
+{%- if cookiecutter.docs_tool == "mkdocs" %}
 - `docs/` — mkdocs source (`index.md`, `modules.md`). Living docs (TODO, CHANGELOG,
   EDGECASES, DECISIONS, ARCHITECTURE) also live here but `exclude_docs` in `mkdocs.yml`
   keeps them out of the built site
+{%- elif cookiecutter.docs_tool == "zensical" %}
+- `docs/` — zensical source (`index.md`, `modules.md`). Zensical has no equivalent of
+  mkdocs' `exclude_docs`, so living docs placed here (TODO, CHANGELOG, EDGECASES,
+  DECISIONS, ARCHITECTURE) are published with the site; keep them elsewhere if that matters
 {%- endif %}
 
 Update this section as the layout settles.

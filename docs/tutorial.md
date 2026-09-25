@@ -1,3 +1,7 @@
+---
+icon: material/rocket-launch
+---
+
 # Tutorial
 
 This page contains a complete tutorial on how to create your project.
@@ -17,7 +21,7 @@ On your local machine, navigate to the directory in which you want to
 create a project directory, and run the following command:
 
 ```bash
-uvx cookiecutter https://github.com/fpgmaas/cookiecutter-uv.git
+uvx cookiecutter https://github.com/osprey-oss/cookiecutter-uv.git
 ```
 
 For an explanation of the prompt arguments, see
