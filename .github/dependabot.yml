@@ -1,15 +1,33 @@
 # Dependabot configuration for the template repository itself.
 #
-# GitHub Actions only. Python dependencies are handled by
+# Python dependencies: version updates are handled by
 # .github/workflows/update-dependencies.yml, which also bumps the pins inside the
-# {{cookiecutter.project_name}} template files that Dependabot cannot parse. Actions are
-# listed here because that workflow only bumps the uv version inside the composite
-# action, not the action tags themselves (actions/checkout, actions/cache,
-# codecov/codecov-action, peter-evans/create-pull-request, astral-sh/setup-uv).
-# One grouped PR per week; Dependabot version updates must be enabled on the fork for
-# this to run at all (forks have them off by default).
+# {{cookiecutter.project_name}} template files that Dependabot cannot parse. The uv entry
+# below therefore sets open-pull-requests-limit to 0, which disables version updates but
+# leaves security updates on, and groups those into a single PR. Without the entry,
+# security updates arrive as one PR per package, all editing uv.lock and conflicting with
+# each other (PRs #4-#9 on 2026-09-25 were exactly that).
+#
+# GitHub Actions: that workflow only bumps the uv version inside the composite action, not
+# the action tags themselves (actions/checkout, actions/cache, codecov/codecov-action,
+# peter-evans/create-pull-request, astral-sh/setup-uv), so Dependabot owns those.
+#
+# Dependabot version updates must be enabled on the fork for the Actions entry to run at
+# all; forks have them off by default. Security updates run regardless.
 version: 2
 updates:
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 0
+    groups:
+      security-updates:
+        applies-to: security-updates
+        patterns:
+          - "*"
+
   - package-ecosystem: "github-actions"
     directories:
       - "/"
