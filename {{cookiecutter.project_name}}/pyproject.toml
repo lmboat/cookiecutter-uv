@@ -27,15 +27,15 @@ Documentation = "https://{{cookiecutter.author_github_handle}}.github.io/{{cooki
 dev = [
     "pytest>=9.1.1",
     "pre-commit>=4.6.2",
-    "tox-uv>=1.36.0",
+    "tox-uv>=1.36.1",
     {% if cookiecutter.deptry == 'y' %}"deptry>=0.25.1",{% endif %}
     {% if cookiecutter.type_checker == "mypy" -%}
-        "mypy>=2.3.1",
+        "mypy>=2.4.0",
     {%- elif cookiecutter.type_checker == "ty" -%}
         "ty>=0.0.84",
     {%- endif %}
     {% if cookiecutter.codecov == 'y' %}"pytest-cov>=7.1.0",{% endif %}
-    "ruff>=0.16.9",
+    "ruff>=0.16.10",
     {%- if cookiecutter.docs_tool in ['mkdocs', 'zensical'] %}
     {%- if cookiecutter.docs_tool == 'mkdocs' %}
     "mkdocs>=1.6.1",
